@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+	
+	<div class="limiter">
+		<div class="container-login100" id="bg">
+			<div class="wrap-login100">
+                {% for task in tasks %}
+				{{task.title}}
+                {% endfor %}
+			</div>
+		</div>
+	</div>
+	
+
+{% endblock %}

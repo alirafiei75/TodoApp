@@ -546,5 +546,7 @@ iframe {
   }
 }
 
-
+#bg {
+  background-image: url("/static/images/bg-01.jpg");
+}
 

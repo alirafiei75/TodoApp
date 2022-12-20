@@ -2,8 +2,9 @@
 {% load static %}
 
 {% block content %}
+
 <div class="limiter">
-    <div class="container-login100" style="background-image: url('{% static 'images/bg-01.jpg' %}');">
+    <div class="container-login100" id="bg">
         <div class="wrap-login100">
             <form class="login100-form validate-form">
                 <span class="login100-form-logo">
@@ -11,7 +12,7 @@
                 </span>
 
                 <span class="login100-form-title p-b-34 p-t-27">
-                    Log in
+                    Sign Up
                 </span>
 
                 <div class="wrap-input100 validate-input" data-validate = "Enter username">
@@ -38,17 +39,18 @@
 
                 <div class="container-login100-form-btn">
                     <button class="login100-form-btn">
-                        Login
+                        Sign Up
                     </button>
                 </div>
 
                 <div class="text-center p-t-90">
                     <p class="txt1">
-                        Don't you have an account? <a href="{% url 'accounts:signup' %}">Create one.</a>
+                        Do you have an account? <a href="{% url 'accounts:login' %}">Login.</a>
                     </p>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
 {% endblock %}
