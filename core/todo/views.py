@@ -1,7 +1,8 @@
 from django.views.generic import ListView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Task
 
-class TasksView(ListView):
+class TasksView(LoginRequiredMixin, ListView):
     model = Task
     template_name = 'todo/tasks.html'
     context_object_name = 'tasks'

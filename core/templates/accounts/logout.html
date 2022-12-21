@@ -1,1 +1,18 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+	
+	<div class="limiter">
+		<div class="container-login100" id="bg">
+			<div class="wrap-login100">
+                <p>You are logged out successfully.</p>
+                <strong>
+                    <a href="{% url 'accounts:login' %}">Home</a>
+                </strong>
+			</div>
+		</div>
+	</div>
+	
+
+{% endblock %}
