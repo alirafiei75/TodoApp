@@ -6,9 +6,21 @@
 	<div class="limiter">
 		<div class="container-login100" id="bg">
 			<div class="wrap-login100">
+				create a task
+			</div>
+			<div class="wrap-login100">
                 {% for task in tasks %}
-				{{task.title}}
-                {% endfor %}
+				<div class="task">
+					<div class="dropdown" style="float:right;">
+						<button class="dropbtn"><i class="arrow down"></i></button>
+						<div class="dropdown-content">
+						  <a class="dc" href="#">Done</a>
+						  <a class="dc" href="#">Edit</a>
+						</div>
+					</div>
+					{{task.title}}
+				</div>
+				{% endfor %}
 			</div>
 		</div>
 	</div>
