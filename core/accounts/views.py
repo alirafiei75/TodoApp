@@ -11,14 +11,11 @@ class CustomLoginView(LoginView):
 
     def dispatch(self, request, *args, **kwargs):       
         if request.user.is_authenticated:
-            username = self.request.user.username 
-            return redirect('todo:tasks', username=username)
+            return redirect('todo:tasks')
         return super(CustomLoginView, self).dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
-        username = self.request.POST.get('username')
-        if username is not None:
-            return reverse_lazy('todo:tasks', kwargs={'username': username})
+        return reverse_lazy('todo:tasks')
 
 
 class CustomLogoutView(LoginRequiredMixin, LogoutView):

@@ -4,11 +4,16 @@
 {% block content %}
 	
 	<div class="limiter">
+		<div class="topnav">
+			<a href="{% url 'accounts:logout' %}">Logout</a>
+			<p>{{user.username}}</p>
+		  </div> 
 		<div class="container-login100" id="bg">
 			
+			
 			<div class="container-login100-form-btn">
-				<div class="login100-form-btn">
-					<a href="{% url 'todo:create' username='admin' %}">Create Task</a>
+				<div class="login100-form-btn-2">
+					<a href="{% url 'todo:create' %}">Create Task</a>
 				</div>
 			</div>
 			
@@ -18,8 +23,9 @@
 					<div class="dropdown" style="float:right;">
 						<button class="dropbtn"><i class="arrow down"></i></button>
 						<div class="dropdown-content">
-						  <a class="dc" href="#">Done</a>
-						  <a class="dc" href="#">Edit</a>
+						  <a style="font-size: 14px;" class="dc" href="#">Done</a>
+						  <a style="font-size: 14px;" class="dc" href="{% url 'todo:edit' pk=task.id %}">Edit</a>
+						  <a style="font-size: 14px;" class="dc" href="{% url 'todo:delete' pk=task.id %}">Delete</a>
 						</div>
 					</div>
 					{{task.title}}
