@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+	
+	<div class="limiter">
+		<div class="container-login100" id="bg">
+			<div class="wrap-login100">
+				<form class="login100-form validate-form" method="post">
+					{% csrf_token %}
+
+                    <div>
+						<input class="input100" type="hidden" name="user" value="1">
+					</div>
+
+					<div class="wrap-input100 validate-input">
+						<input class="input100" type="text" name="title" placeholder="Title">
+						<span class="focus-input100" data-placeholder="&#xf207;"></span>
+					</div>
+
+					<div class="container-login100-form-btn">
+						<button class="login100-form-btn" type="submit">
+							Create Task
+						</button>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
