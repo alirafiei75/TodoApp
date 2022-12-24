@@ -2,15 +2,12 @@
 {% load static %}
 
 {% block content %}
-	
 	<div class="limiter">
 		<div class="topnav">
 			<a href="{% url 'accounts:logout' %}">Logout</a>
 			<p>{{user.username}}</p>
 		  </div> 
 		<div class="container-login100" id="bg">
-			
-			
 			<div class="container-login100-form-btn">
 				<div class="login100-form-btn-2">
 					<a href="{% url 'todo:create' %}">Create Task</a>
@@ -29,13 +26,13 @@
 						</div>
 					</div>
 					{% if task.completed == False %}
-					<li>
-						{{task.title}}
-					</li>
+						<li>
+							{{task.title}}
+						</li>
 					{% else %}
-					<li id="complete">
-						{{task.title}}
-					</li>
+						<li id="complete">
+							{{task.title}}
+						</li>
 					{% endif %}
 				</div>
 				{% endfor %}
@@ -43,6 +40,4 @@
 			{% endif %}
 		</div>
 	</div>
-	
-
 {% endblock %}

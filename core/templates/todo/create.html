@@ -2,17 +2,15 @@
 {% load static %}
 
 {% block content %}
-	
 	<div class="limiter">
         <div class="topnav">
 			<a href="{% url 'accounts:logout' %}">Logout</a>
 			<p>{{user.username}}</p>
-		  </div> 
+		</div> 
 		<div class="container-login100" id="bg">
 			<div class="wrap-login100">
 				<form class="login100-form validate-form" method="post">
 					{% csrf_token %}
-
                     <div>
 						<input class="input100" type="hidden" name="user" value="{{user.id}}">
 					</div>
@@ -27,10 +25,8 @@
 							Create Task
 						</button>
 					</div>
-
 				</form>
 			</div>
 		</div>
 	</div>
-
 {% endblock %}
