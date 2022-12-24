@@ -16,22 +16,31 @@
 					<a href="{% url 'todo:create' %}">Create Task</a>
 				</div>
 			</div>
-			
+			{% if tasks %}
 			<div class="wrap-login100">
                 {% for task in tasks %}
 				<div class="task">
 					<div class="dropdown" style="float:right;">
 						<button class="dropbtn"><i class="arrow down"></i></button>
 						<div class="dropdown-content">
-						  <a style="font-size: 14px;" class="dc" href="#">Done</a>
+						  <a style="font-size: 14px;" class="dc" href="{% url 'todo:complete' pk=task.id %}">Done</a>
 						  <a style="font-size: 14px;" class="dc" href="{% url 'todo:edit' pk=task.id %}">Edit</a>
 						  <a style="font-size: 14px;" class="dc" href="{% url 'todo:delete' pk=task.id %}">Delete</a>
 						</div>
 					</div>
-					{{task.title}}
+					{% if task.completed == False %}
+					<li>
+						{{task.title}}
+					</li>
+					{% else %}
+					<li id="complete">
+						{{task.title}}
+					</li>
+					{% endif %}
 				</div>
 				{% endfor %}
 			</div>
+			{% endif %}
 		</div>
 	</div>
 	

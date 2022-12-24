@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+	
+	<div class="limiter">
+		<div class="container-login100" id="bg">
+			<div class="wrap-login100">
+				<form class="login100-form validate-form" method="post">
+					{% csrf_token %}
+
+                    <div>
+						<input class="input100" type="hidden" name="completed" value="True">
+					</div>
+                    <p>Did you completed the task?</p>
+					<div class="container-login100-form-btn">
+						<button class="login100-form-btn" type="submit">
+							Yes
+						</button>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

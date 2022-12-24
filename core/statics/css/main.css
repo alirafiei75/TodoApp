@@ -508,7 +508,6 @@ iframe {
   font-size: 16px;
   color: #555555;
   line-height: 1.2;
-
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -726,4 +725,6 @@ iframe {
     color: black;
   }
 
-  
+#complete {
+  text-decoration: line-through;
+}  

@@ -32,6 +32,13 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
         return context
 
 
+class TaskCompleteView(LoginRequiredMixin, UpdateView):
+    template_name = 'todo/complete.html'
+    model = Task
+    fields = ['completed',]
+    success_url = reverse_lazy('todo:tasks')
+
+
 class TaskEditView(LoginRequiredMixin, UpdateView):
     template_name = 'todo/edit.html'
     model = Task
