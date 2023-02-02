@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     # 3rd party libraries
     'rest_framework',
     'django_filters',
+    'drf_yasg',
     # local apps
     'todo.apps.TodoConfig',
     'accounts.apps.AccountsConfig',
