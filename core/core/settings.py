@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # 3rd party libraries
     'rest_framework',
+    'django_filters',
     # local apps
     'todo.apps.TodoConfig',
     'accounts.apps.AccountsConfig',
