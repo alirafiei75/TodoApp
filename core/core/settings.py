@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # 3rd party libraries
     'rest_framework',
+    'rest_framework.authtoken',
     'django_filters',
     'drf_yasg',
     # local apps
@@ -145,3 +146,11 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = '/'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CALSSES': [
+        'rest_framework.authentication.BasicAutentication',
+        'rest_framework.authentication.SessionAutentication',
+        'rest_framework.authentication.TokenAutentication',
+    ]
+}
