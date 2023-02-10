@@ -10,6 +10,8 @@ app_name = 'accounts-api'
 urlpatterns = [
     # Registration
     path('registration/', RegistrationAPIView.as_view(), name='registration'),
+    # Change Password
+    path('change-password/', ChangePasswordAPIView.as_view(), name='change-password'),
     # Token Authentication
     path('token/login/', CustomObtainAuthToken.as_view(), name='token-login'),
     path('token/logout/', TokenLogout.as_view(), name='token-logout'),

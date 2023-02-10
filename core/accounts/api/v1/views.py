@@ -47,3 +47,28 @@ class TokenLogout(APIView):
 class CustomTokenObtainPairView(TokenObtainPairView):
     """customizing creating jwt view"""
     serializer_class = CustomTokenObtainPairSerializer
+
+
+class ChangePasswordAPIView(generics.GenericAPIView):
+    """View class for changing the password."""
+    serializer_class = ChangePasswordSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        obj = self.request.user
+        return obj
+
+    def put(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            # Check old password
+            if not self.object.check_password(serializer.data.get("old_password")):
+                return Response({'old_password': 'Wrong password.'}, status=status.HTTP_400_BAD_REQUEST)
+            # set_password also hashes the password that the user will get
+            self.object.set_password(serializer.data.get("new_password"))
+            self.object.save()
+
+            return Response({'detail': 'password changed successfully.'}, status=status.HTTP_200_OK)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
