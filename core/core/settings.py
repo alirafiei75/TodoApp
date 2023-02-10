@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     # 3rd party libraries
     'rest_framework',
     'rest_framework.authtoken',
+    'rest_framework_simplejwt',
     'django_filters',
     'drf_yasg',
     # local apps
@@ -152,5 +153,6 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAutentication',
         'rest_framework.authentication.SessionAutentication',
         'rest_framework.authentication.TokenAutentication',
+        'rest_framework.authentication.JWTAutentication',
     ]
 }
