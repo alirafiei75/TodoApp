@@ -1,8 +1,10 @@
 from rest_framework import serializers
+from django.contrib.auth import authenticate
 from django.contrib.auth.password_validation import validate_password
 from django.core import exceptions
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from accounts.models import CustomUser
+from rest_framework.authtoken.serializers import AuthTokenSerializer
 
 
 class RegistrationSerializer(serializers.ModelSerializer):
@@ -29,12 +31,39 @@ class RegistrationSerializer(serializers.ModelSerializer):
         return super().create(validated_data)
 
 
+class CustomAuthTokenSerializer(AuthTokenSerializer):
+    def validate(self, attrs):
+        username = attrs.get('username')
+        password = attrs.get('password')
+
+        if username and password:
+            user = authenticate(request=self.context.get('request'),
+                                username=username, password=password)
+
+            # The authenticate call simply returns None for is_active=False
+            # users. (Assuming the default ModelBackend authentication
+            # backend.)
+            if not user:
+                msg = 'Unable to log in with provided credentials.'
+                raise serializers.ValidationError(msg, code='authorization')
+            if not user.is_verified:
+                raise serializers.ValidationError({'detail': 'user is not verified.'})
+        else:
+            msg = 'Must include "username" and "password".'
+            raise serializers.ValidationError(msg, code='authorization')
+
+        attrs['user'] = user
+        return attrs
+
+
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     """Customizing TokenObtainPairSerializer for jwt authentication."""
     def validate(self, attrs):
         validated_data = super().validate(attrs)
         validated_data['username'] = self.user.username
         validated_data['user_id'] = self.user.id
+        if not self.user.is_verified:
+            raise serializers.ValidationError({'detail': 'user is not verified.'})
         return validated_data
 
 

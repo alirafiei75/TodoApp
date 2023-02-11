@@ -1,7 +1,7 @@
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.permissions import IsAuthenticated
 from .serializers import TaskSerializer, TasksSerializer
-from .permissions import IsOwner
+from .permissions import IsOwner, IsVerifiedUser
 from .paginations import DefaultPagination
 from ...models import Task
 from django_filters.rest_framework import DjangoFilterBackend
@@ -11,7 +11,7 @@ class TaskListView(ListCreateAPIView):
     """Generic view for showing the list of tasks"""
     serializer_class = TasksSerializer
     pagination_class = DefaultPagination
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsVerifiedUser]
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_fields = ['completed']
     search_fields = ['title']

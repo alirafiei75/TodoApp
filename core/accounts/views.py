@@ -3,12 +3,13 @@ from django.shortcuts import redirect
 from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, CustomAuthenticationForm
 
 class CustomLoginView(LoginView):
     """class for custom login view"""
     template_name = 'accounts/login.html'
     redirect_authenticated_user = True
+    form_class = CustomAuthenticationForm
 
     def dispatch(self, request, *args, **kwargs):
         """custom dispatch
