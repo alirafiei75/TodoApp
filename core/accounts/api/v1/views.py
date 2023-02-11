@@ -6,7 +6,10 @@ from rest_framework.authtoken.models import Token
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.views import TokenObtainPairView
+from mail_templated import EmailMessage
 from .serializers import *
+from ..utils import EmailThread
+
 
 
 class RegistrationAPIView(generics.GenericAPIView):
@@ -72,3 +75,15 @@ class ChangePasswordAPIView(generics.GenericAPIView):
             return Response({'detail': 'password changed successfully.'}, status=status.HTTP_200_OK)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    
+class TestEmailSend(generics.GenericAPIView):
+    def get(self, request, *args, **kwargs):
+        email_obj = EmailMessage(
+            'email/hello.tpl',
+            {'name': 'ali'},
+            'admin@admin.com',
+            to=['a.rafiei1375@gmail.com']
+        )
+        EmailThread(email_obj).start()
+        return Response('email sent', status=status.HTTP_200_OK)

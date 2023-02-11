@@ -10,12 +10,14 @@ class RegistrationSerializer(serializers.ModelSerializer):
     password1 = serializers.CharField(max_length=150, write_only=True)
     class Meta:
         model = User
-        fields = ['username', 'password', 'password1']
+        fields = ['username', 'email', 'password', 'password1']
 
     def validate(self, attrs):
         """validation of given attributes"""
         if attrs.get('password') != attrs.get('password1'):
             raise serializers.ValidationError({'detail': 'passwords does not match'})
+        if not attrs.get('email'):
+            raise serializers.ValidationError({'detail': 'please enter an email address'})
         try:
             validate_password(attrs.get('password'))
         except exceptions.ValidationError as e:

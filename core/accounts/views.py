@@ -1,9 +1,9 @@
-from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
 from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from .forms import CustomUserCreationForm
 
 class CustomLoginView(LoginView):
     """class for custom login view"""
@@ -28,6 +28,6 @@ class CustomLogoutView(LoginRequiredMixin, LogoutView):
 
 class SignupView(CreateView):
     """class for custom signup view"""
-    form_class = UserCreationForm
+    form_class = CustomUserCreationForm
     success_url = reverse_lazy('accounts:login')
     template_name = 'accounts/signup.html'
