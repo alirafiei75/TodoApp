@@ -1,15 +1,15 @@
 from rest_framework import serializers
-from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 from django.core import exceptions
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from accounts.models import CustomUser
 
 
 class RegistrationSerializer(serializers.ModelSerializer):
     """Serializer for registration"""
     password1 = serializers.CharField(max_length=150, write_only=True)
     class Meta:
-        model = User
+        model = CustomUser
         fields = ['username', 'email', 'password', 'password1']
 
     def validate(self, attrs):

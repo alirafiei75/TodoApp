@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from ...models import Task 
 from django.urls import reverse
-from django.contrib.auth.models import User
+from accounts.models import CustomUser
 
 class TaskSerializer(serializers.ModelSerializer):
     """Serializer for Task instances"""
@@ -38,7 +38,7 @@ class TaskSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         """override create to automate user selection."""
         print(validated_data)
-        validated_data['user'] = User.objects.get(id=self.context.get('request').user.id)
+        validated_data['user'] = CustomUser.objects.get(id=self.context.get('request').user.id)
         return super().create(validated_data)
 
 
