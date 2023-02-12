@@ -1,14 +1,18 @@
-from django.contrib.auth.forms import UserCreationForm, UsernameField, UserChangeForm, AuthenticationForm
+from django.contrib.auth.forms import (
+    UserCreationForm,
+    UsernameField,
+    UserChangeForm,
+    AuthenticationForm,
+)
 from .models import CustomUser
 from django.core.exceptions import ValidationError
 
 
-
 class CustomUserCreationForm(UserCreationForm):
-        class Meta:
-            model = CustomUser
-            fields = ("username", "email")
-            field_classes = {'username': UsernameField}
+    class Meta:
+        model = CustomUser
+        fields = ("username", "email")
+        field_classes = {"username": UsernameField}
 
 
 class CustomUserChangeForm(UserChangeForm):
@@ -25,12 +29,12 @@ class CustomAuthenticationForm(AuthenticationForm):
         """
         if not user.is_active:
             raise ValidationError(
-                self.error_messages['inactive'],
-                code='inactive',
+                self.error_messages["inactive"],
+                code="inactive",
             )
 
         if not user.is_verified:
             raise ValidationError(
-                self.error_messages['not verified'],
-                code='inactive',
+                self.error_messages["not verified"],
+                code="inactive",
             )
