@@ -99,3 +99,34 @@ class VerificationResendSerializer(serializers.Serializer):
             raise serializers.ValidationError({'detail': 'user is already verified'})
         attrs['user'] = user_obj
         return super().validate(attrs)
+
+
+class RequestResetPasswordSerializer(serializers.Serializer):
+    email = serializers.EmailField(required=True)
+
+    def validate(self, attrs):
+        email = attrs.get('email')
+        try:
+            user_obj = CustomUser.objects.get(email=email)
+        except CustomUser.DoesNotExist:
+            raise serializers.ValidationError({'detail': 'user does not exist'})
+        attrs['user'] = user_obj
+        return super().validate(attrs)
+
+
+class ResetPasswordSerializer(serializers.Serializer):
+    new_password = serializers.CharField(required=True)
+    new_password1 = serializers.CharField(required=True)
+
+    def validate(self, attrs):
+        """validation of given attributes"""
+        if attrs.get('new_password') != attrs.get('new_password1'):
+            raise serializers.ValidationError({'detail': 'passwords does not match'})
+            
+        try:
+            validate_password(attrs.get('new_password'))
+        except exceptions.ValidationError as e:
+            raise serializers.ValidationError({'new_password': list(e.messages)})
+        
+        return super().validate(attrs)
+

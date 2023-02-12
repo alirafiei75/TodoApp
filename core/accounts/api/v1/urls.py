@@ -15,6 +15,9 @@ urlpatterns = [
     path('verification/resend/', VerificationResendAPIView.as_view(), name='verification-resend'),
     # Change Password
     path('change-password/', ChangePasswordAPIView.as_view(), name='change-password'),
+    # Forget/Reset Password
+    path('request-reset-password/', RequestResetPasswordAPIView.as_view(), name='request-reset-password'),
+    path('reset-password/uid/<int:user_id>/<str:token>', ResetPasswordAPIView.as_view(), name='reset-password'),
     # Token Authentication
     path('token/login/', CustomObtainAuthToken.as_view(), name='token-login'),
     path('token/logout/', TokenLogout.as_view(), name='token-logout'),
