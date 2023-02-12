@@ -85,3 +85,17 @@ class ChangePasswordSerializer(serializers.Serializer):
         
         return super().validate(attrs)
 
+
+class VerificationResendSerializer(serializers.Serializer):
+    email = serializers.EmailField(required=True)
+
+    def validate(self, attrs):
+        email = attrs.get('email')
+        try:
+            user_obj = CustomUser.objects.get(email=email)
+        except CustomUser.DoesNotExist:
+            raise serializers.ValidationError({'detail': 'user does not exist'})
+        if user_obj.is_verified:
+            raise serializers.ValidationError({'detail': 'user is already verified'})
+        attrs['user'] = user_obj
+        return super().validate(attrs)

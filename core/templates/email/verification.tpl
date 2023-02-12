@@ -1,9 +1,9 @@
 {% extends "mail_templated/base.tpl" %}
 
 {% block subject %}
-Hello {{ name }}
+Todo website account verification
 {% endblock %}
 
 {% block html %}
-This is an <strong>html</strong> message.
+http://127.0.0.1:8000/api/v1/verification/confirm/{{token}}
 {% endblock %}
