@@ -149,7 +149,7 @@ LOGIN_URL = "/"
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CALSSES": [
-        "rest_framework.authentication.BasicAutentication",
+        "rest_framework.authentication.SessionAuthentication"
         "rest_framework.authentication.TokenAutentication",
         "rest_framework.authentication.JWTAutentication",
     ]
