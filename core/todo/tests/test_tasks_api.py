@@ -19,10 +19,10 @@ def common_user():
 class TestTaskAPI:
     """class for testing tasks API."""
 
-    def test_list_tasks_response_403_unauthorized_user(self, api_client):
+    def test_list_tasks_response_401_unauthorized_user(self, api_client):
         url = reverse("todo:todo-api:tasks")
         response = api_client.get(url)
-        assert response.status_code == 403
+        assert response.status_code == 401
 
     def test_list_tasks_response_200_logged_in_user(self, api_client, common_user):
         user = common_user
@@ -38,6 +38,7 @@ class TestTaskAPI:
         data = {"title": "test_task"}
         response = api_client.post(url, data)
         assert response.status_code == 201
+        
 
     def test_retrieve_task_response_200(self, api_client, common_user):
         user = common_user

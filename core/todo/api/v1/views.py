@@ -9,6 +9,8 @@ from .paginations import DefaultPagination
 from ...models import Task
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
+from rest_framework.authentication import TokenAuthentication, BasicAuthentication, SessionAuthentication
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 
 class TaskListView(ListCreateAPIView):
@@ -17,6 +19,7 @@ class TaskListView(ListCreateAPIView):
     serializer_class = TasksSerializer
     pagination_class = DefaultPagination
     permission_classes = [IsAuthenticated, IsVerifiedUser]
+    authentication_classes = [BasicAuthentication, TokenAuthentication, JWTAuthentication]
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_fields = ["completed"]
     search_fields = ["title"]
@@ -34,3 +37,4 @@ class TaskDetailView(RetrieveUpdateDestroyAPIView):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
     permission_classes = [IsOwner]
+    authentication_classes = [BasicAuthentication, TokenAuthentication, JWTAuthentication]
