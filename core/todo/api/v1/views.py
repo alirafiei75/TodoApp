@@ -9,7 +9,7 @@ from .paginations import DefaultPagination
 from ...models import Task
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
-from rest_framework.authentication import TokenAuthentication, BasicAuthentication, SessionAuthentication
+from rest_framework.authentication import TokenAuthentication
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
 

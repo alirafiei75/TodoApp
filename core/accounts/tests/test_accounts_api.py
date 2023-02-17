@@ -11,9 +11,12 @@ def api_client():
     client = APIClient()
     return client
 
+
 @pytest.fixture
 def common_user():
-    user = CustomUser.objects.create(username="testuser", password="a/123456", is_verified=True)
+    user = CustomUser.objects.create(
+        username="testuser", password="a/123456", is_verified=True
+    )
     return user
 
 
@@ -32,7 +35,6 @@ class TestAccountsAPI:
         response = api_client.post(url, data)
         assert response.status_code == 201
 
-
     def test_create_user_invalid_data_response_400(self, api_client):
         url = reverse("accounts:accounts-api:registration")
         data = {
@@ -44,20 +46,18 @@ class TestAccountsAPI:
         response = api_client.post(url, data)
         assert response.status_code == 400
 
-
     def test_token_login_response_200(self, api_client, common_user):
         user = common_user
         token = Token.objects.get_or_create(user=user)
-        api_client.credentials(HTTP_AUTHORIZATION='token ' + str(token[0]))
+        api_client.credentials(HTTP_AUTHORIZATION="token " + str(token[0]))
         url = reverse("todo:todo-api:tasks")
         response = api_client.get(url)
         assert response.status_code == 200
 
-
     def test_token_logout_responste_401(self, api_client, common_user):
         user = common_user
         token = Token.objects.get_or_create(user=user)
-        api_client.credentials(HTTP_AUTHORIZATION='token ' + str(token[0]))
+        api_client.credentials(HTTP_AUTHORIZATION="token " + str(token[0]))
         url = reverse("todo:todo-api:tasks")
         response = api_client.get(url)
         assert response.status_code == 200
@@ -65,11 +65,10 @@ class TestAccountsAPI:
         response = api_client.get(url)
         assert response.status_code == 401
 
-
     def test_jwt_login_response_200(self, api_client, common_user):
         user = common_user
         refresh = RefreshToken.for_user(user)
-        api_client.credentials(HTTP_AUTHORIZATION=f'Bearer {refresh.access_token}')
+        api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {refresh.access_token}")
         url = reverse("todo:todo-api:tasks")
         response = api_client.get(url)
         assert response.status_code == 200

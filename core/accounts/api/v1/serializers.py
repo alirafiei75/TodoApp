@@ -19,9 +19,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
         """validation of given attributes"""
         if attrs.get("password") != attrs.get("password1"):
-            raise serializers.ValidationError(
-                {"detail": "passwords does not match"}
-            )
+            raise serializers.ValidationError({"detail": "passwords does not match"})
         if not attrs.get("email"):
             raise serializers.ValidationError(
                 {"detail": "please enter an email address"}
@@ -58,9 +56,7 @@ class CustomAuthTokenSerializer(AuthTokenSerializer):
                 msg = "Unable to log in with provided credentials."
                 raise serializers.ValidationError(msg, code="authorization")
             if not user.is_verified:
-                raise serializers.ValidationError(
-                    {"detail": "user is not verified."}
-                )
+                raise serializers.ValidationError({"detail": "user is not verified."})
         else:
             msg = 'Must include "username" and "password".'
             raise serializers.ValidationError(msg, code="authorization")
@@ -77,9 +73,7 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         validated_data["username"] = self.user.username
         validated_data["user_id"] = self.user.id
         if not self.user.is_verified:
-            raise serializers.ValidationError(
-                {"detail": "user is not verified."}
-            )
+            raise serializers.ValidationError({"detail": "user is not verified."})
         return validated_data
 
 
@@ -93,16 +87,12 @@ class ChangePasswordSerializer(serializers.Serializer):
     def validate(self, attrs):
         """validation of given attributes"""
         if attrs.get("new_password") != attrs.get("new_password1"):
-            raise serializers.ValidationError(
-                {"detail": "passwords does not match"}
-            )
+            raise serializers.ValidationError({"detail": "passwords does not match"})
 
         try:
             validate_password(attrs.get("new_password"))
         except exceptions.ValidationError as e:
-            raise serializers.ValidationError(
-                {"new_password": list(e.messages)}
-            )
+            raise serializers.ValidationError({"new_password": list(e.messages)})
 
         return super().validate(attrs)
 
@@ -117,13 +107,9 @@ class VerificationResendSerializer(serializers.Serializer):
         try:
             user_obj = CustomUser.objects.get(email=email)
         except CustomUser.DoesNotExist:
-            raise serializers.ValidationError(
-                {"detail": "user does not exist"}
-            )
+            raise serializers.ValidationError({"detail": "user does not exist"})
         if user_obj.is_verified:
-            raise serializers.ValidationError(
-                {"detail": "user is already verified"}
-            )
+            raise serializers.ValidationError({"detail": "user is already verified"})
         attrs["user"] = user_obj
         return super().validate(attrs)
 
@@ -138,9 +124,7 @@ class RequestResetPasswordSerializer(serializers.Serializer):
         try:
             user_obj = CustomUser.objects.get(email=email)
         except CustomUser.DoesNotExist:
-            raise serializers.ValidationError(
-                {"detail": "user does not exist"}
-            )
+            raise serializers.ValidationError({"detail": "user does not exist"})
         attrs["user"] = user_obj
         return super().validate(attrs)
 
@@ -154,15 +138,11 @@ class ResetPasswordSerializer(serializers.Serializer):
     def validate(self, attrs):
         """validation of given attributes"""
         if attrs.get("new_password") != attrs.get("new_password1"):
-            raise serializers.ValidationError(
-                {"detail": "passwords does not match"}
-            )
+            raise serializers.ValidationError({"detail": "passwords does not match"})
 
         try:
             validate_password(attrs.get("new_password"))
         except exceptions.ValidationError as e:
-            raise serializers.ValidationError(
-                {"new_password": list(e.messages)}
-            )
+            raise serializers.ValidationError({"new_password": list(e.messages)})
 
         return super().validate(attrs)

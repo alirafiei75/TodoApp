@@ -9,9 +9,12 @@ def api_client():
     client = APIClient()
     return client
 
+
 @pytest.fixture
 def common_user():
-    user = CustomUser.objects.create(username="testuser", password="a/123456", is_verified=True)
+    user = CustomUser.objects.create(
+        username="testuser", password="a/123456", is_verified=True
+    )
     return user
 
 
@@ -38,7 +41,6 @@ class TestTaskAPI:
         data = {"title": "test_task"}
         response = api_client.post(url, data)
         assert response.status_code == 201
-        
 
     def test_retrieve_task_response_200(self, api_client, common_user):
         user = common_user
@@ -46,8 +48,8 @@ class TestTaskAPI:
         url = reverse("todo:todo-api:tasks")
         data = {"title": "test_task"}
         response = api_client.post(url, data)
-        pk = response.data.get('id')
-        url = reverse("todo:todo-api:task-detail", kwargs={'pk': pk})
+        pk = response.data.get("id")
+        url = reverse("todo:todo-api:task-detail", kwargs={"pk": pk})
         response = api_client.get(url)
         assert response.status_code == 200
 
@@ -57,8 +59,8 @@ class TestTaskAPI:
         url = reverse("todo:todo-api:tasks")
         data = {"title": "test_task"}
         response = api_client.post(url, data)
-        pk = response.data.get('id')
-        url = reverse("todo:todo-api:task-detail", kwargs={'pk': pk})
+        pk = response.data.get("id")
+        url = reverse("todo:todo-api:task-detail", kwargs={"pk": pk})
         data = {"title": "test_task_edited", "completed": True}
         response = api_client.put(url, data)
         assert response.status_code == 200
@@ -71,8 +73,8 @@ class TestTaskAPI:
         url = reverse("todo:todo-api:tasks")
         data = {"title": "test_task"}
         response = api_client.post(url, data)
-        pk = response.data.get('id')
-        url = reverse("todo:todo-api:task-detail", kwargs={'pk': pk})
+        pk = response.data.get("id")
+        url = reverse("todo:todo-api:task-detail", kwargs={"pk": pk})
         data = {"completed": True}
         response = api_client.patch(url, data)
         assert response.status_code == 200
@@ -84,8 +86,7 @@ class TestTaskAPI:
         url = reverse("todo:todo-api:tasks")
         data = {"title": "test_task"}
         response = api_client.post(url, data)
-        pk = response.data.get('id')
-        url = reverse("todo:todo-api:task-detail", kwargs={'pk': pk})
+        pk = response.data.get("id")
+        url = reverse("todo:todo-api:task-detail", kwargs={"pk": pk})
         response = api_client.delete(url)
         assert response.status_code == 204
-        

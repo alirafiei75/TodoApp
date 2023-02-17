@@ -55,9 +55,7 @@ class VerificationAPIView(APIView):
 
     def get(self, request, token, *args, **kwargs):
         try:
-            token = jwt.decode(
-                token, settings.SECRET_KEY, algorithms=["HS256"]
-            )
+            token = jwt.decode(token, settings.SECRET_KEY, algorithms=["HS256"])
             user_id = token.get("user_id")
         except ExpiredSignatureError:
             return Response(
@@ -128,9 +126,7 @@ class RequestResetPasswordAPIView(generics.GenericAPIView):
         )
         EmailThread(email_obj).start()
         return Response(
-            {
-                "detail": "please check your email inbox to reset your password."
-            },
+            {"detail": "please check your email inbox to reset your password."},
             status=status.HTTP_200_OK,
         )
 
@@ -146,9 +142,7 @@ class ResetPasswordAPIView(generics.GenericAPIView):
 
     def post(self, request, token, *args, **kwargs):
         try:
-            token = jwt.decode(
-                token, settings.SECRET_KEY, algorithms=["HS256"]
-            )
+            token = jwt.decode(token, settings.SECRET_KEY, algorithms=["HS256"])
             user_id = token.get("user_id")
         except ExpiredSignatureError:
             return Response(
@@ -223,9 +217,7 @@ class ChangePasswordAPIView(generics.GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             # Check old password
-            if not self.object.check_password(
-                serializer.data.get("old_password")
-            ):
+            if not self.object.check_password(serializer.data.get("old_password")):
                 return Response(
                     {"old_password": "Wrong password."},
                     status=status.HTTP_400_BAD_REQUEST,
