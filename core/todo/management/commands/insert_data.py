@@ -4,6 +4,7 @@ from accounts.models import CustomUser
 from todo.models import Task
 import random
 
+
 class Command(BaseCommand):
     help = "inserting dummy tasks"
 
@@ -12,17 +13,16 @@ class Command(BaseCommand):
         self.fake = Faker()
 
     def handle(self, *args, **options):
-        fake_profile=self.fake.simple_profile()
+        fake_profile = self.fake.simple_profile()
         user = CustomUser.objects.create_user(
-            username=fake_profile.get('username'),
+            username=fake_profile.get("username"),
             email=self.fake.email(),
-            password="test@123456"
+            password="test@123456",
         )
 
         for _ in range(5):
             Task.objects.create(
-            user=user,
-            title=self.fake.paragraph(nb_sentences=1),
-            completed=random.choice([True, False]),
-       ) 
-
+                user=user,
+                title=self.fake.paragraph(nb_sentences=1),
+                completed=random.choice([True, False]),
+            )
