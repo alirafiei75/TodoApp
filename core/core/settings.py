@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "django_filters",
     "drf_yasg",
     "mail_templated",
+    "corsheaders",
     # local apps
     "todo.apps.TodoConfig",
     "accounts.apps.AccountsConfig",
@@ -57,6 +58,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -163,3 +165,5 @@ EMAIL_HOST_PASSWORD = ""
 EMAIL_USE_TLS = False
 
 AUTH_USER_MODEL = "accounts.CustomUser"
+
+CORS_ALLOW_ALL_ORIGINS = True
