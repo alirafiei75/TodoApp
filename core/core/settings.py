@@ -167,3 +167,5 @@ EMAIL_USE_TLS = False
 AUTH_USER_MODEL = "accounts.CustomUser"
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+CELERY_BROKER_URL = "redis://redis:6379/1"
