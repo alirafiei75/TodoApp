@@ -167,3 +167,14 @@ EMAIL_USE_TLS = False
 AUTH_USER_MODEL = "accounts.CustomUser"
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://redis:6379/2",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}

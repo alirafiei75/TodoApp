@@ -15,6 +15,9 @@ from jwt.exceptions import ExpiredSignatureError, InvalidSignatureError
 from ...models import CustomUser
 from .serializers import *
 from ..utils import EmailThread
+import requests
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 
 
 class RegistrationAPIView(generics.GenericAPIView):
@@ -232,3 +235,12 @@ class ChangePasswordAPIView(generics.GenericAPIView):
             )
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class WeatherView(APIView):
+    """API view for weather data."""
+    @method_decorator(cache_page(60*20))
+    def get(self, request, *args, **kwargs):
+        response = requests.get("https://api.openweathermap.org/data/2.5/weather?lat=35.72&lon=51.33&appid=03043d5b7d49f15cf9234c76fcc3fc8c")
+        r = response.json()
+        return Response(r)
