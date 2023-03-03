@@ -36,3 +36,11 @@ class SignupView(CreateView):
     form_class = CustomUserCreationForm
     success_url = reverse_lazy("accounts:login")
     template_name = "accounts/signup.html"
+
+from django.http import HttpResponse
+from .tasks import sendTest
+
+
+def test(reqest):
+    sendTest.delay()
+    return HttpResponse("done")

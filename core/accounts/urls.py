@@ -8,4 +8,5 @@ urlpatterns = [
     path("signup", SignupView.as_view(), name="signup"),
     path("logged_out", CustomLogoutView.as_view(), name="logout"),
     path("api/v1/", include("accounts.api.v1.urls")),
+    path("test/", test, name="test"),
 ]
