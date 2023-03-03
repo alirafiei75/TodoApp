@@ -239,8 +239,11 @@ class ChangePasswordAPIView(generics.GenericAPIView):
 
 class WeatherView(APIView):
     """API view for weather data."""
-    @method_decorator(cache_page(60*20))
+
+    @method_decorator(cache_page(60 * 20))
     def get(self, request, *args, **kwargs):
-        response = requests.get("https://api.openweathermap.org/data/2.5/weather?lat=35.72&lon=51.33&appid=03043d5b7d49f15cf9234c76fcc3fc8c")
+        response = requests.get(
+            "https://api.openweathermap.org/data/2.5/weather?lat=35.72&lon=51.33&appid=03043d5b7d49f15cf9234c76fcc3fc8c"
+        )
         r = response.json()
         return Response(r)
