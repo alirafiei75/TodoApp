@@ -40,6 +40,16 @@ services:
       - redis
       - backend
 
+  db:
+    image: postgres:13.0-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=123
+      - POSTGRES_DB=Todo_DB
+
 volumes:
   static_volume:
   media_volume:
+  postgres_data:

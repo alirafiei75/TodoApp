@@ -16,3 +16,4 @@ redis
 django-redis
 celery
 gunicorn
+psycopg2-binary==2.9.1
