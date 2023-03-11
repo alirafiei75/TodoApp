@@ -29,7 +29,7 @@ DEBUG = config("DEBUG", cast=bool, default=True)
 ALLOWED_HOSTS = config(
     "ALLOWED_HOSTS",
     cast=lambda v: [s.strip() for s in v.split(",")],
-    default="*",
+    default="",
 )
 
 
@@ -93,9 +93,9 @@ WSGI_APPLICATION = "core.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": config("POSTGRES_DB", default="Todo_DB"),
-        "USER": config("POSTGRES_USER", default="admin"),
-        "PASSWORD": config("POSTGRES_PASSWORD", default=123),
+        "NAME": config("POSTGRES_DB"),
+        "USER": config("POSTGRES_USER"),
+        "PASSWORD": config("POSTGRES_PASSWORD"),
         "HOST": "db",
         "PORT": 5432,
     }
@@ -162,11 +162,11 @@ REST_FRAMEWORK = {
 }
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "smtp4dev"
-EMAIL_PORT = 25
-EMAIL_HOST_USER = ""
-EMAIL_HOST_PASSWORD = ""
-EMAIL_USE_TLS = False
+EMAIL_HOST = config('EMAIL_HOST', default='smtpdev')
+EMAIL_PORT = config('EMAIL_PORT', default=25, cast=int)
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
+EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='')
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=False, cast=bool)
 
 AUTH_USER_MODEL = "accounts.CustomUser"
 
